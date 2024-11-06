@@ -1,0 +1,17 @@
+name: "Model x"
+spatial resolution: 
+variable spatial resolution: Yes
+dimensionality: "0D" #Should be one of the following 0D, 1D, 2D or 3D
+temporal resolution:
+  value: 1
+  units: "days"
+variable temporal resolution: No
+input data:
+  - {name: "value 1", value: 2, units: "m^2"}
+  - {name: "value 2", value: 3, units: "celsius"}
+output data:
+  - {name: "value 3", value: 4, units: "km/h"}
+  - {name: "value 4", value: 5, units: "celsius"}
+calibration variables:
+  - name: "calibration value 1"
+computational requirements: "Requires GPU"
