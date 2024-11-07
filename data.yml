@@ -1,0 +1,22 @@
+calibration variables: ''
+computatioal requirements: ''
+dimensionality: 0D
+input data:
+- name: '1'
+  units: '3'
+  value: '2'
+- name: '7'
+  units: '9'
+  value: '8'
+name: ''
+output data:
+- name: '4'
+  units: '6'
+  value: '5'
+- name: '10'
+  units: '12'
+  value: '11'
+spatial resolution: ''
+temporal resolution: ''
+variable spatial resolution: ''
+variable temporal resolution: ''
