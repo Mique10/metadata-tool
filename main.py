@@ -8,23 +8,23 @@ def submit_form():
 
    output["name"] = entry_name.get()
    output["spatial resolution"] = entry_spatial_resolution.get()
-   output["variable spatial resolution"] = entry_variable_spatial_resolution.get()
+   output["variable spatial resolution"] = var_space_v.get()
    output["dimensionality"] = dims_var.get()
    output["temporal resolution"] = entry_temporal_resolution.get()
-   output["variable temporal resolution"] = entry_variable_temporal_resolution.get()
+   output["variable temporal resolution"] = var_temp_v.get()
    output["calibration variables"] = entry_calibration_vars.get()
    output["computatioal requirements"] = entry_computational_reqs.get()
 
    input_data = []
    if input_entries:
-      for (iname,ivalue,iunits) in input_entries:
-         input_data.append({"name":iname.get(), "value":ivalue.get(), "units":iunits.get()})
+      for (iname,idescription,iunits) in input_entries:
+         input_data.append({"name":iname.get(), "description":idescription.get(), "units":iunits.get()})
    output["input data"] = input_data
 
    output_data = []
    if output_entries:
-      for (oname,ovalue,ounits) in output_entries:
-         output_data.append({"name":oname.get(), "value":ovalue.get(), "units":ounits.get()})
+      for (oname,odescription,ounits) in output_entries:
+         output_data.append({"name":oname.get(), "description":odescription.get(), "units":ounits.get()})
    output["output data"] = output_data
    
 
@@ -35,10 +35,10 @@ def submit_form():
    result_label.config(text=f"YAML File Successfully Created!\n"
                         #   f"Name: {name}\n"
                         #   f"Spatial Resolution: {spatial_resolution}\n"
-                        #   f"Variable Spatial Resolution: {variable_spatial_resolution}\n"
+                        #   f"Variable Spatial Resolution: {var_space_v.get()}\n"
                         #   f"Dimensionality: {dims}\n"
                         #   f"Temporal Resolution: {temporal_resolution}\n"
-                        #   f"Variable Temporal Resolution: {variable_temporal_resolution}\n"
+                        #   f"Variable Temporal Resolution: {var_temp_v.get()}\n"
                         #   f"Input Data: {input_data}\n"
                         #   f"Output Data: {output_data}\n"
                         #   f"Calibration Variables: {calibration_vars}\n"
@@ -47,52 +47,73 @@ def submit_form():
 
 
 root = tk.Tk()
-root.title("Flood-Registration Form")
-root.geometry("1500x800")
-root.configure(bg="lightgreen")
+root.title("Model Metadata Form")
+root.geometry("1600x800")
+
+main_frame = tk.Frame(root)
+main_frame.pack(fill="both", expand="1")
+
+canvas = tk.Canvas(main_frame)
+canvas.pack(side="left", fill="both", expand="1")
+
+scroll = ttk.Scrollbar(main_frame, orient="vertical", command=canvas.yview)
+scroll.pack(side="right", fill="y")
+
+canvas.configure(yscrollcommand=scroll.set)
+canvas.bind('<Configure>', lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
+secondairy_frame = tk.Frame(canvas)
+
+canvas.create_window((0,0), window=secondairy_frame, anchor="nw")
+
+def updateScrollRegion():
+	canvas.update_idletasks()
+	canvas.config(scrollregion=secondairy_frame.bbox())
 
 
-label_name = ttk.Label(root, text="Name:", foreground="purple")
-label_spatial_resolution = ttk.Label(root, text="Spatial Resolution:", foreground="purple")
-label_variable_spatial_resolution = ttk.Label(root, text="Variable Spatial Resolution:", foreground="purple")
-label_dims = ttk.Label(root, text="Dimensionality:", foreground="purple")
-label_temporal_resolution = ttk.Label(root, text="Temporal Resolution:", foreground="purple")
-label_variable_temporal_resolution = ttk.Label(root, text="Variable Temporal Resolution:", foreground="purple")
-label_input_data = ttk.Label(root, text="Input Data:", foreground="purple")
-label_input_data_name = ttk.Label(root, text="Name:", foreground="purple")
-label_input_data_value = ttk.Label(root, text="Value:", foreground="purple")
-label_input_data_units = ttk.Label(root, text="Units:", foreground="purple")
-label_output_data = ttk.Label(root, text="Output Data:", foreground="purple")
-label_output_data_name = ttk.Label(root, text="Name:", foreground="purple")
-label_output_data_value = ttk.Label(root, text="Value:", foreground="purple")
-label_output_data_units = ttk.Label(root, text="Units:", foreground="purple")
-label_calibration_vars = ttk.Label(root, text="Calibration Varables:", foreground="purple")
-label_computational_reqs = ttk.Label(root, text="Computational Requirements:", foreground="purple")
+label_name = ttk.Label(secondairy_frame, text="Name:", foreground="black")
+label_spatial_resolution = ttk.Label(secondairy_frame, text="Spatial Resolution:", foreground="black")
+label_variable_spatial_resolution = ttk.Label(secondairy_frame, text="Variable Spatial Resolution:", foreground="black")
+label_dims = ttk.Label(secondairy_frame, text="Dimensionality:", foreground="black")
+label_temporal_resolution = ttk.Label(secondairy_frame, text="Temporal Resolution:", foreground="black")
+label_temporal_resolution_value = ttk.Label(secondairy_frame, text="Value", foreground="black")
+label_temporal_resolution_units = ttk.Label(secondairy_frame, text="Units", foreground="black")
+label_variable_temporal_resolution = ttk.Label(secondairy_frame, text="Variable Temporal Resolution:", foreground="black")
+
+label_input_data = ttk.Label(secondairy_frame, text="Input Data:", foreground="black")
+label_input_data_name = ttk.Label(secondairy_frame, text="Name:", foreground="black")
+label_input_data_description = ttk.Label(secondairy_frame, text="Description:", foreground="black")
+label_input_data_units = ttk.Label(secondairy_frame, text="Units:", foreground="black")
+label_output_data = ttk.Label(secondairy_frame, text="Output Data:", foreground="black")
+label_output_data_name = ttk.Label(secondairy_frame, text="Name:", foreground="black")
+label_output_data_description = ttk.Label(secondairy_frame, text="Description:", foreground="black")
+label_output_data_units = ttk.Label(secondairy_frame, text="Units:", foreground="black")
+
+label_computational_reqs = ttk.Label(secondairy_frame, text="Computational Requirements:", foreground="black")
+label_calibration_vars = ttk.Label(secondairy_frame, text="Calibration Varables", foreground="black")
+label_calibration_vars_name = ttk.Label(secondairy_frame, text="Name:", foreground="black")
+label_calibration_vars_description = ttk.Label(secondairy_frame, text="Description:", foreground="black")
+label_calibration_vars_units = ttk.Label(secondairy_frame, text="Units:", foreground="black")
 
 
-entry_name = ttk.Entry(root) 
-entry_spatial_resolution = ttk.Entry(root) 
-entry_variable_spatial_resolution = ttk.Entry(root) 
-# entry_dims = ttk.Entry(root) 
-entry_temporal_resolution = ttk.Entry(root) 
-entry_variable_temporal_resolution = ttk.Entry(root) 
-# entry_input_data = ttk.Entry(root) 
-# entry_output_data = ttk.Entry(root) 
-entry_calibration_vars = ttk.Entry(root) 
-entry_computational_reqs = ttk.Entry(root) 
+entry_name = ttk.Entry(secondairy_frame) 
+entry_spatial_resolution = ttk.Entry(secondairy_frame) 
+entry_variable_spatial_resolution = ttk.Entry(secondairy_frame) 
+entry_temporal_resolution_value = ttk.Entry(secondairy_frame)
+entry_temporal_resolution_units = ttk.Entry(secondairy_frame)
+entry_variable_temporal_resolution = ttk.Entry(secondairy_frame)
+# entry_calibration_vars = ttk.Entry(secondairy_frame) 
+entry_computational_reqs = ttk.Entry(secondairy_frame) 
 
-# Create a Combobox for gender
+
 dims_var = tk.StringVar()
-dims_combobox = ttk.Combobox(root, textvariable=dims_var, values=["0D", "1D", "2D", "3D"], state="readonly")
+dims_combobox = ttk.Combobox(secondairy_frame, textvariable=dims_var, values=["0D", "1D", "2D", "3D"], state="readonly")
 dims_combobox.set("0D")  # Default value
 
 
-# Create submit button
 submit_button = ttk.Button(root, text="Submit", command=submit_form, style="TButton")
 
 
-# Create label for displaying the result
-result_label = ttk.Label(root, text="", foreground="blue")
+result_label = ttk.Label(secondairy_frame, text="", foreground="blue")
 
 
 label_name.grid(row=0, column=0, padx=10, pady=5, sticky="w")
@@ -100,73 +121,114 @@ label_spatial_resolution.grid(row=1, column=0, padx=10, pady=5, sticky="w")
 label_variable_spatial_resolution.grid(row=2, column=0, padx=10, pady=5, sticky="w")
 label_dims.grid(row=3, column=0, padx=10, pady=5, sticky="w")
 label_temporal_resolution.grid(row=4, column=0, padx=10, pady=5, sticky="w")
-label_variable_temporal_resolution.grid(row=5, column=0, padx=10, pady=5, sticky="w")
-# label_output_data.grid(row=6, column=0, padx=10, pady=5, sticky="w")
-label_calibration_vars.grid(row=6, column=0, padx=10, pady=5, sticky="w")
-label_computational_reqs.grid(row=7, column=0, padx=10, pady=5, sticky="w")
+label_temporal_resolution_value.grid(row=5, column=0, padx=10, pady=5, sticky="w")
+label_temporal_resolution_units.grid(row=6, column=0, padx=10, pady=5, sticky="w")
+
+label_variable_temporal_resolution.grid(row=7, column=0, padx=10, pady=5, sticky="w")
+label_computational_reqs.grid(row=8, column=0, padx=10, pady=5, sticky="w")
 
 label_input_data.grid(row=0, column=3, padx=10, pady=5, sticky="w")
 label_input_data_name.grid(row=0, column=4, padx=10, pady=5, sticky="w")
-label_input_data_value.grid(row=0, column=5, padx=10, pady=5, sticky="w")
+label_input_data_description.grid(row=0, column=5, padx=10, pady=5, sticky="w")
 label_input_data_units.grid(row=0, column=6, padx=10, pady=5, sticky="w")
 label_output_data.grid(row=0, column=7, padx=10, pady=5, sticky="w")
 label_output_data_name.grid(row=0, column=8, padx=10, pady=5, sticky="w")
-label_output_data_value.grid(row=0, column=9, padx=10, pady=5, sticky="w")
+label_output_data_description.grid(row=0, column=9, padx=10, pady=5, sticky="w")
 label_output_data_units.grid(row=0, column=10, padx=10, pady=5, sticky="w")
+label_calibration_vars.grid(row=9, column=0, padx=10, pady=5, sticky="w")
+label_calibration_vars_name.grid(row=10, column=0, padx=10, pady=5, sticky="w")
+label_calibration_vars_description.grid(row=10, column=1, padx=10, pady=5, sticky="w")
+label_calibration_vars_units.grid(row=10, column=2, padx=10, pady=5, sticky="w")
+
 
 
 entry_name.grid(row=0, column=1, padx=10, pady=5, sticky="w")
 entry_spatial_resolution.grid(row=1, column=1, padx=10, pady=5, sticky="w")
-entry_variable_spatial_resolution.grid(row=2, column=1, padx=10, pady=5, sticky="w")
-# entry_dims.grid(row=3, column=1, padx=10, pady=5, sticky="w")
 dims_combobox.grid(row=3, column=1, padx=10, pady=5, sticky="w")
-entry_temporal_resolution.grid(row=4, column=1, padx=10, pady=5, sticky="w")
-entry_variable_temporal_resolution.grid(row=5, column=1, padx=10, pady=5, sticky="w")
-# entry_input_data.grid(row=6, column=1, padx=10, pady=5, sticky="w")
-# entry_output_data.grid(row=6, column=1, padx=10, pady=5, sticky="w")
-entry_calibration_vars.grid(row=6, column=1, padx=10, pady=5, sticky="w")
-entry_computational_reqs.grid(row=7, column=1, padx=10, pady=5, sticky="w")
+entry_temporal_resolution_value.grid(row=5, column=1, padx=10, pady=5, sticky="w")
+entry_temporal_resolution_units.grid(row=6, column=1, padx=10, pady=5, sticky="w")
+entry_computational_reqs.grid(row=8, column=1, padx=10, pady=5, sticky="w")
+# entry_calibration_vars.grid(row=9, column=1, padx=10, pady=5, sticky="w")
 
 
-submit_button.grid(row=8, column=0, columnspan=2, pady=5)
+submit_button.pack(side="bottom", padx=10, pady=5)
 result_label.grid(row=9, column=0, columnspan=2, pady=5)
 
 
-# Configure style for the submit button
-style = ttk.Style()
-style.configure("TButton", foreground="red")
-
 input_entries = []
-input_count = 1 # To keep track of inserted entries
+input_count = 1
 
 def add_input():
    global input_count
-   input_entries.append((ttk.Entry(root),ttk.Entry(root),ttk.Entry(root)))
-   (name, value, units) = input_entries[-1]
+   input_entries.append((ttk.Entry(secondairy_frame),ttk.Entry(secondairy_frame),ttk.Entry(secondairy_frame)))
+   (name, description, units) = input_entries[-1]
    name.grid(row=input_count, column=4, padx=5, pady=5)
-   value.grid(row=input_count, column=5, padx=5, pady=5)
+   description.grid(row=input_count, column=5, padx=5, pady=5)
    units.grid(row=input_count, column=6, padx=5, pady=5)
-   input_count += 1 # Increase the count by 1
+   input_count += 1
+   updateScrollRegion()
 
 add_input()
 
-ttk.Button(root, text='Add', command=add_input).grid(row=1, column=3, padx=10, pady=5)
+ttk.Button(secondairy_frame, text='Add', command=add_input).grid(row=1, column=3, padx=10, pady=5)
 
 output_entries = []
-output_count = 1 # To keep track of inserted entries
+output_count = 1
 
 def add_output():
    global output_count
-   output_entries.append((ttk.Entry(root),ttk.Entry(root),ttk.Entry(root)))
-   (name, value, units) = output_entries[-1]
+   output_entries.append((ttk.Entry(secondairy_frame),ttk.Entry(secondairy_frame),ttk.Entry(secondairy_frame)))
+   (name, description, units) = output_entries[-1]
    name.grid(row=output_count, column=8, padx=5, pady=5)
-   value.grid(row=output_count, column=9, padx=5, pady=5)
+   description.grid(row=output_count, column=9, padx=5, pady=5)
    units.grid(row=output_count, column=10, padx=5, pady=5)
-   output_count += 1 # Increase the count by 1
+   output_count += 1
+   updateScrollRegion()
 
 add_output()
 
-ttk.Button(root, text='Add', command=add_output).grid(row=1, column=7, padx=10, pady=5)
+ttk.Button(secondairy_frame, text='Add', command=add_output).grid(row=1, column=7, padx=10, pady=5)
+
+calibration_vars_entries = []
+calibration_vars_count = 1
+
+def add_calibration_var():
+   global calibration_vars_count
+   calibration_vars_entries.append((ttk.Entry(secondairy_frame),ttk.Entry(secondairy_frame),ttk.Entry(secondairy_frame)))
+   (name, description, units) = calibration_vars_entries[-1]
+   name.grid(row= 10 + calibration_vars_count, column=0, padx=5, pady=5, sticky="w")
+   description.grid(row= 10 + calibration_vars_count, column=1, padx=5, pady=5, sticky="w")
+   units.grid(row= 10 + calibration_vars_count, column=2, padx=5, pady=5, sticky="w")
+   calibration_vars_count += 1
+   updateScrollRegion()
+
+add_calibration_var()
+
+ttk.Button(secondairy_frame, text='Add', command=add_calibration_var).grid(row=9, column=1, padx=10, pady=5, sticky="w")
+
+#radio button for variable spacial resolution
+button_frame_var_space = tk.Frame(secondairy_frame)
+button_frame_var_space.grid(row=2, column=1)
+var_space_v= tk.StringVar()
+r1 = ttk.Radiobutton(button_frame_var_space, text='Yes', variable=var_space_v, value='Yes')
+r1.grid(row=0,column=0, padx=10) 
+r2 = ttk.Radiobutton(button_frame_var_space, text='No', variable=var_space_v, value='No')
+r2.grid(row=0,column=1,padx=10) 
+r3 = ttk.Radiobutton(button_frame_var_space, text='Configurable', variable=var_space_v, value='Configurable')
+r3.grid(row=0,column=2, padx=10)
+
+#radio buttons for variable temporal resolution
+button_frame_var_temp = tk.Frame(secondairy_frame)
+button_frame_var_temp.grid(row=7, column=1)
+var_temp_v = tk.StringVar()
+r4 = ttk.Radiobutton(button_frame_var_temp, text='Yes', variable=var_temp_v, value='Yes')
+r4.grid(row=0,column=0, padx=10) 
+r5 = ttk.Radiobutton(button_frame_var_temp, text='No', variable=var_temp_v, value='No')
+r5.grid(row=0,column=1,padx=10) 
+r6 = ttk.Radiobutton(button_frame_var_temp, text='Configurable', variable=var_temp_v, value='Configurable')
+r6.grid(row=0,column=2, padx=10)
+
+
 
 
 # Run the Tkinter main loop

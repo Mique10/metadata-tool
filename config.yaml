@@ -7,11 +7,11 @@ temporal resolution:
   units: "days"
 variable temporal resolution: No
 input data:
-  - {name: "value 1", value: 2, units: "m^2"}
-  - {name: "value 2", value: 3, units: "celsius"}
+  - {name: "value 1", description: "", units: "m^2"}
+  - {name: "value 2", description: "", units: "celsius"}
 output data:
-  - {name: "value 3", value: 4, units: "km/h"}
-  - {name: "value 4", value: 5, units: "celsius"}
+  - {name: "value 3", description: "", units: "km/h"}
+  - {name: "value 4", description: "", units: "celsius"}
 calibration variables:
-  - name: "calibration value 1"
+  - {name: "calibration value 1", description: "", units: ""}
 computational requirements: "Requires GPU"
