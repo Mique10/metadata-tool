@@ -2,31 +2,55 @@ import tkinter as tk
 from tkinter import ttk
 import yaml
 
+from collections import OrderedDict
+
 def submit_form():
    # Retrieve values from the form
-   output = {}
+   output = OrderedDict()
 
    output["name"] = entry_name.get()
    output["spatial resolution"] = entry_spatial_resolution.get()
    output["variable spatial resolution"] = var_space_v.get()
    output["dimensionality"] = dims_var.get()
-   output["temporal resolution"] = entry_temporal_resolution.get()
+   output["temporal resolution"] = {"value": entry_temporal_resolution_value.get(), "units": entry_temporal_resolution_units.get()}
    output["variable temporal resolution"] = var_temp_v.get()
-   output["calibration variables"] = entry_calibration_vars.get()
    output["computatioal requirements"] = entry_computational_reqs.get()
 
    input_data = []
    if input_entries:
       for (iname,idescription,iunits) in input_entries:
-         input_data.append({"name":iname.get(), "description":idescription.get(), "units":iunits.get()})
+         od = OrderedDict()
+         od["name"] = iname.get()
+         od["description"] = idescription.get()
+         od["units"] = iunits.get()
+         input_data.append(od)
    output["input data"] = input_data
 
    output_data = []
    if output_entries:
       for (oname,odescription,ounits) in output_entries:
-         output_data.append({"name":oname.get(), "description":odescription.get(), "units":ounits.get()})
+         od = OrderedDict()
+         od["name"] = oname.get()
+         od["description"] = odescription.get()
+         od["units"] = ounits.get()
+         output_data.append(od)
    output["output data"] = output_data
+
+   calibration_vars_data = []
+   if calibration_vars_entries:
+      for (cname,cdescription,cunits) in calibration_vars_entries:
+         od = OrderedDict()
+         od["name"] = cname.get()
+         od["description"] = cdescription.get()
+         od["units"] = cunits.get()
+         calibration_vars_data.append(od)
+   output["calibration variables"] = calibration_vars_data
    
+   
+   #Allow ordered dict to be dumped to yaml
+   """ http://stackoverflow.com/a/8661021 """
+   represent_dict_order = lambda self, data:  self.represent_mapping('tag:yaml.org,2002:map', data.items())
+   yaml.add_representer(OrderedDict, represent_dict_order)
 
    with open('data.yml', 'w') as outfile:
     yaml.dump(output, outfile, default_flow_style=False)
@@ -113,7 +137,7 @@ dims_combobox.set("0D")  # Default value
 submit_button = ttk.Button(root, text="Submit", command=submit_form, style="TButton")
 
 
-result_label = ttk.Label(secondairy_frame, text="", foreground="blue")
+result_label = ttk.Label(root, text="", foreground="blue")
 
 
 label_name.grid(row=0, column=0, padx=10, pady=5, sticky="w")
@@ -151,8 +175,8 @@ entry_computational_reqs.grid(row=8, column=1, padx=10, pady=5, sticky="w")
 # entry_calibration_vars.grid(row=9, column=1, padx=10, pady=5, sticky="w")
 
 
+result_label.pack(side="bottom", padx=10, pady=5)
 submit_button.pack(side="bottom", padx=10, pady=5)
-result_label.grid(row=9, column=0, columnspan=2, pady=5)
 
 
 input_entries = []
