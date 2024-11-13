@@ -1,67 +1,31 @@
-name: PCLake+
-spatial resolution: 3 Vertical Layers
+name: FLake
+spatial resolution: Vertical
 variable spatial resolution: 'No'
 dimensionality: 1D
 temporal resolution:
-  units: N/A
+  units: seconds
   value: Configurable
 variable temporal resolution: 'No'
-computatioal requirements: No Specific Computational Requirements
+computatioal requirements: N/A
 input data:
-- name: mQIn
-  description: Inflow (river and precipitation)
-  units: mm/d
-- name: mQOut
-  description: Outflow
-  units: mm/d
-- name: mQEv
-  description: Evaporation
-  units: mm/d
-- name: cQinf
-  description: Groundwater
-  units: mm/d
-- name: _cDepthWInit0_
-  description: Water depth
-  units: m
-- name: cFetch
-  description: Fetch
-  units: m
-- name: cLat
-  description: Latitude
-  units: degrees
-- name: flutum
-  description: Clay content
-  units: gDWclay/gDW
-- name: fFeDIM
-  description: Iron content
-  units: gFe/gDW
-- name: fAlDIM
-  description: Aluminium content
-  units: gAl/gDW
-- name: fDOrgSoil
-  description: Organic matter content
-  units: gOrg/gDW
-- name: fDTotS0
-  description: Dryweight per gram sediment
-  units: gDW/gSed
-- name: mPLoad
-  description: Phosphorus loading
-  units: gP/m2/d
-- name: mNLoad
-  description: Nitrogen loading
-  units: gN/m2/d
-- name: cNPLoadMeas
-  description: N:P ratio in loading
-  units: gN/gP
-- name: cLDayAve
-  description: Average incomming radition
-  units: J/m2/d
-- name: cLDayVar
-  description: Annual variation in radiation
-  units: J/m2/d
-- name: mTempEpi
-  description: Water temperature epilimnion (upper layer)
-  units: Degrees Celcius
+- name: Sequential Number
+  description: Sequential Number
+  units: Whole Numbers
+- name: Solar Radiation
+  description: Solar Radiation
+  units: W/m2
+- name: Air Temperature
+  description: temperature of the air
+  units: Celsius
+- name: Air Humidity
+  description: humidity of the air
+  units: mb
+- name: Wind Speed
+  description: Speed of the wind
+  units: m/s
+- name: Cloudiness
+  description: cloudiness of the sky
+  units: 0-1
 output data:
 - name: ''
   description: ''

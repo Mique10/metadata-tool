@@ -1,0 +1,99 @@
+name: FLake
+spatial resolution: Vertical
+variable spatial resolution: 'No'
+dimensionality: 1D
+temporal resolution:
+  units: seconds
+  value: Configurable
+variable temporal resolution: 'No'
+computatioal requirements: N/A
+input data:
+- name: Sequential Number
+  description: Sequential Number
+  units: Whole Numbers
+- name: Solar Radiation
+  description: Solar Radiation
+  units: W/m2
+- name: Air Temperature
+  description: temperature of the air
+  units: Celsius
+- name: Air Humidity
+  description: humidity of the air
+  units: mb
+- name: Wind Speed
+  description: Speed of the wind
+  units: m/s
+- name: Cloudiness
+  description: cloudiness of the sky
+  units: 0-1
+output data:
+- name: "No"
+  description: sequential number
+  units: whole numbers
+- name: time
+  description: time
+  units: days
+- name: Ts
+  description: surface temperature 
+  units: °C
+- name: Tm
+  description: mean water temperature 
+  units: °C
+- name: Tb
+  description: bottom temperature 
+  units: °C
+- name: ufr_a
+  description: friction velocity in air 
+  units: m/s
+- name: ufr_w
+  description: friction velocity in surface water 
+  units: m/s
+- name: Wconv
+  description: convective velocity scale 
+  units: m/s
+- name: Q_se
+  description: Sensible surface heat flux 
+  units: W/m2
+- name: Q_la
+  description: latent surface heat flux 
+  units: W/m2
+- name: I_w
+  description: short-wave radiation 
+  units: W/m2
+- name: Q_lwa
+  description: long-wave radiative flux from the atmosphere 
+  units: W/m2
+- name: Q_lww
+  description: long-wave radiative flux from the water 
+  units: W/m2
+- name: h_ML
+  description: mixed layer depth 
+  units: m
+- name: C_T
+  description: stratification "shape factor" 
+  units: dimensionless
+- name: H_B1
+  description: depth of the thermal wave penetration in sediments 
+  units: m
+- name: T_B1
+  description: temperature at the crest of the thermal wave in sediments 
+  units: °C
+- name: Q_bot
+  description: heat flux across the water-sediments boundary 
+  units: W/m2
+- name: H_ice
+  description: ice thickness 
+  units: m
+- name: H_snow
+  description: snow thickness 
+  units: m
+- name: T_ice
+  description: ice temperature 
+  units: °C
+- name: T_snow
+  description: snow temperature
+  units: °C
+calibration variables:
+- name: ''
+  description: ''
+  units: ''
