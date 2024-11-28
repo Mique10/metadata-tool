@@ -6,7 +6,9 @@ temporal resolution:
   units: seconds
   value: Configurable
 variable temporal resolution: 'No'
-computatioal requirements: N/A
+computatioal requirements:
+  operatingSystem: Windows 7
+  memoryRequirements: 1 GB
 input data:
 - name: Sequential Number
   description: Sequential Number
