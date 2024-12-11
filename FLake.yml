@@ -2,9 +2,7 @@ name: FLake
 spatial resolution: Vertical
 variable spatial resolution: 'No'
 dimensionality: 1D
-temporal resolution:
-  units: seconds
-  value: Configurable
+temporal resolution: configurable
 variable temporal resolution: 'No'
 computatioal requirements: N/A
 input data:

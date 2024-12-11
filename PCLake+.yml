@@ -2,11 +2,9 @@ name: PCLake+
 spatial resolution: 3 Vertical Layers
 variable spatial resolution: 'No'
 dimensionality: 1D
-temporal resolution:
-  units: N/A
-  value: Configurable
+temporal resolution: Configurable
 variable temporal resolution: 'No'
-computatioal requirements: No Specific Computational Requirements
+computatioal requirements: N/A
 input data:
 - name: mQIn
   description: Inflow (river and precipitation)

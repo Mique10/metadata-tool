@@ -1,10 +1,8 @@
 name: "Model x"
-spatial resolution: 
+spatial resolution: 'vertical'
 variable spatial resolution: Yes
 dimensionality: "0D" #Should be one of the following 0D, 1D, 2D or 3D
-temporal resolution:
-  value: 1
-  units: "days"
+temporal resolution: 'P4DT12H30M'
 variable temporal resolution: No
 input data:
   - {name: "value 1", description: "", units: "m^2"}
@@ -14,4 +12,6 @@ output data:
   - {name: "value 4", description: "", units: "celsius"}
 calibration variables:
   - {name: "calibration value 1", description: "", units: ""}
-computational requirements: "Requires GPU"
+computatioal requirements:
+  operatingSystem: 'Windows 7'
+  memoryRequirements: '1 GB'
