@@ -4,61 +4,60 @@ variable spatial resolution: 'No'
 dimensionality: 1D
 temporal resolution: Configurable
 variable temporal resolution: 'No'
-computatioal requirements:
-  operatingSystem: 'Windows'
+computatioal requirements: N/A
 input data:
-- name: mQIn
+- name: mQIn # From Tot Inflow Vol (ML (1000 M^3))
   description: Inflow (river and precipitation)
   units: mm/d
-- name: mQOut
+- name: mQOut # From Tot Outflow Vol (ML (1000 M^3))
   description: Outflow
   units: mm/d
-- name: mQEv
+- name: mQEv # From Evaporation (ML (1000 M^3))
   description: Evaporation
   units: mm/d
-- name: cQinf
+- name: cQinf # From observations
   description: Groundwater
   units: mm/d
-- name: _cDepthWInit0_
+- name: _cDepthWInit0_ # From observations of lake
   description: Water depth
   units: m
-- name: cFetch
+- name: cFetch # From observations of lake
   description: Fetch
   units: m
-- name: cLat
+- name: cLat # From observations of lake
   description: Latitude
   units: degrees
-- name: flutum
+- name: flutum # Based on sediment type can be found in pclake+ excel or Janse 2005
   description: Clay content
   units: gDWclay/gDW
-- name: fFeDIM
+- name: fFeDIM # Based on sediment type can be found in pclake+ excel or Janse 2005
   description: Iron content
   units: gFe/gDW
-- name: fAlDIM
+- name: fAlDIM # Based on sediment type can be found in pclake+ excel or Janse 2005
   description: Aluminium content
   units: gAl/gDW
-- name: fDOrgSoil
+- name: fDOrgSoil # Based on sediment type can be found in pclake+ excel or Janse 2005
   description: Organic matter content
   units: gOrg/gDW
-- name: fDTotS0
+- name: fDTotS0 # Based on sediment type can be found in pclake+ excel or Janse 2005
   description: Dryweight per gram sediment
   units: gDW/gSed
-- name: mPLoad
+- name: mPLoad # From observations of lake
   description: Phosphorus loading
   units: gP/m2/d
-- name: mNLoad
+- name: mNLoad # From observtions of lake
   description: Nitrogen loading
   units: gN/m2/d
-- name: cNPLoadMeas
+- name: cNPLoadMeas # From observations of lake
   description: N:P ratio in loading
   units: gN/gP
-- name: cLDayAve
-  description: Average incomming radition
+- name: cLDayAve # From Daily Qlw (MJ day^-1)
+  description: Average incomming radiation
   units: J/m2/d
-- name: cLDayVar
+- name: cLDayVar # Will be estimated based on the latitude
   description: Annual variation in radiation
   units: J/m2/d
-- name: mTempEpi
+- name: mTempEpi # From Surface temp
   description: Water temperature epilimnion (upper layer)
   units: Degrees Celcius
 output data:

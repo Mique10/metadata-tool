@@ -1,48 +1,48 @@
 name: GLM
-spatial resolution: Vertical
-variable spatial resolution: 'No'
+spatial resolution: Vertical # nuber of vertical layers changes
+variable spatial resolution: 'Yes'
 dimensionality: 1D
 temporal resolution: configurable
 variable temporal resolution: 'No'
 computatioal requirements: N/A
 input data:
-- name: Cinf	
+- name: Cinf
   description: concentration of relevant scalar in the outflowing water
   units: Various
-- name: Cx	
+- name: Cx
   description: cloud cover fraction
-  units: -
-- name: Qinfx	
+  units: "-"
+- name: Qinfx
   description: rate of a single water inflow provided by the user as input to the model
   units: m^3 ss^-1
-- name: Qoutx	
+- name: Qoutx
   description: rate of a single water outflow provided by the user as input to the model
   units: m^3 s^-1
-- name: Rx	
+- name: Rx
   description: rainfall rate supplied in the input file
   units: m day^-1
-- name: RHx	
+- name: RHx
   description: relative humidity
-  units: %
-- name: Sx	
+  units: "%"
+- name: Sx
   description: snowfall rate supplied in the input file
   units: m day^-1
-- name: Sinfx	
+- name: Sinfx
   description: salinity of water entering in an inflow
   units: g m-3
-- name: Tx	
+- name: Tx
   description: air temperature supplied by the user
   units: ◦C
-- name: Tinfx	
+- name: Tinfx
   description: temperature of water entering in an inflow
   units: ◦C
-- name: Ux	
+- name: Ux
   description: wind speed above the lake surface provided by the user
   units: m s^-1
-- name: ∅SWx	
+- name: ∅SWx
   description: shortwave radiation flux provided in the input file
   units: W m^-2
-- name: φwind	
+- name: φwind
   description: wind direction
   units: degrees
 output data:
@@ -51,7 +51,7 @@ output data:
   units: yyyy-mm-dd
 - name: day
   description: Julian day number
-  units: -
+  units: "-"
 - name: Volume
   description: Total lake volume
   units: ML (1000 M^3)
@@ -65,7 +65,7 @@ output data:
   description: Total daily volume of overflows
   units: ML
 - name: Evaporation
-  description: Total dialy volume of evaporation
+  description: Total daily volume of evaporation
   units: ML
 - name: Rain
   description: Total daily volume of rainfall

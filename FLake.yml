@@ -1,10 +1,11 @@
 name: FLake
-spatial resolution: Vertical
+spatial resolution: 3 Vertical layers
 variable spatial resolution: 'No'
 dimensionality: 1D
 temporal resolution: configurable
 variable temporal resolution: 'No'
-computatioal requirements: N/A
+computatioal requirements:
+  operatingSystem: 'Windows or Unix'
 input data:
 - name: Sequential Number
   description: Sequential Number
