@@ -1,5 +1,5 @@
 name: GLM
-spatial resolution: Vertical # nuber of vertical layers changes
+spatial resolution: Vertical # number of vertical layers changes
 variable spatial resolution: 'Yes'
 dimensionality: 1D
 temporal resolution: configurable
