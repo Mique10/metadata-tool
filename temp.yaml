@@ -39,10 +39,10 @@ input data:
 - name: Ux
   description: wind speed above the lake surface provided by the user
   units: m s^-1
-- name: ∅SWx
+- name: |$\varnothing$|SWx
   description: shortwave radiation flux provided in the input file
   units: W m^-2
-- name: φwind
+- name: |$\phi$|wind
   description: wind direction
   units: degrees
 output data:
@@ -154,10 +154,10 @@ calibration variables:
   units: "-"
 - name: latitude
   description: Latitude, positive North [real]
-  units: ∘N∘N
+  units: |$\circ$|N|$\circ$|N
 - name: longitude
   description: Longitude, positive East [real]
-  units: ∘E∘E
+  units: |$\circ$|E|$\circ$|E
 - name: base_elev
   description: Elevation of the bottom-most point of the lake [real]
   units: mm above datum
@@ -222,73 +222,73 @@ calibration variables:
   description: Array of WQ variable initial data (rows = vars; cols = depths) [real]
   units: "-"
 - name: met_sw # &meteorology
-  description: Switch to enable the surface heating module	[boolean]
+  description: Switch to enable the surface heating module [boolean]
   units: "-"
 - name: meteo_fl # Input meterological data
-  description: Filename of the meterological file	[string]
+  description: Filename of the meterological file [string]
   units: "-"
 - name: subdaily
-  description: Switch to indicate the meteorological data is provided with sub-daily resolution, at an interval equivalent to Δt	[boolean]
+  description: Switch to indicate the meteorological data is provided with sub-daily resolution, at an interval equivalent to Δt [boolean]
   units: "-"
 - name: time_fmt
-  description: Time format of the 1st column in the inflow_fl	[string]
+  description: Time format of the 1st column in the inflow_fl [string]
   units: "-"
 - name: rad_mode # SW & LW radiation
-  description: Switch to configure which incoming radiation option to use	[integer]
+  description: Switch to configure which incoming radiation option to use [integer]
   units: "-"
 - name: albedo_mode
-  description: Switch to configure which albedo calculation option is used	[integer]
+  description: Switch to configure which albedo calculation option is used [integer]
   units: "-"
 - name: sw_factor
-  description: Scaling factor to adjust the shortwave radiation data provided in the meteo_fl (ϕSWxϕSWx)	[real]
+  description: Scaling factor to adjust the shortwave radiation data provided in the meteo_fl (ϕSWx) [real]
   units: "-"
 - name: lw_type
-  description: Switch to configure which input approach is being used for longwave/cloud data in the meteo_fl	[string]
+  description: Switch to configure which input approach is being used for longwave/cloud data in the meteo_fl [string]
   units: "-"
 - name: cloud_mode
-  description: Switch to configure which atmospheric emmissivity calculation option is used	[integer]
+  description: Switch to configure which atmospheric emmissivity calculation option is used [integer]
   units: "-"
 - name: lw_factor
-  description: Scaling factor to adjust the longwave (or cloud) data provided in the meteo_fl (CxCx)	[real]
+  description: Scaling factor to adjust the longwave (or cloud) data provided in the meteo_fl (CxCx) [real]
   units: "-"
 - name: atm_stab # Sensible & latent heat
-  description: Switch to configure which approach to atmospheric stability is used	[integer]
+  description: Switch to configure which approach to atmospheric stability is used [integer]
   units: "-"
 - name: rh_factor
-  description: Scaling factor to adjust the relative humidity data provided in the meteo_fl (RHxRHx)	[real]
+  description: Scaling factor to adjust the relative humidity data provided in the meteo_fl (RHxRHx) [real]
   units: "-"
 - name: at_factor
-  description: Scaling factor to adjust the air temperature data provided in the meteo_fl (ATxATx)	[real]
+  description: Scaling factor to adjust the air temperature data provided in the meteo_fl (ATxATx) [real]
   units: "-"
 - name: ce
-  description: Bulk aerodynamic transfer coefficient for latent heat flux	[real]
+  description: Bulk aerodynamic transfer coefficient for latent heat flux [real]
   units: "-"
 - name: ch
-  description: Bulk aerodynamic transfer coefficient for sensible heat flux	[real]
+  description: Bulk aerodynamic transfer coefficient for sensible heat flux [real]
   units: "-"
 - name: rain_sw # Rainfall & local runoff ("run-in")
-  description: Switch to configure rainfall input concentrations	[boolean]
+  description: Switch to configure rainfall input concentrations [boolean]
   units: "-"
 - name: rain_factor
-  description: Scaling factor to adjust the rainfall data provided in the meteo_fl (RxRx)	[real]
+  description: Scaling factor to adjust the rainfall data provided in the meteo_fl (RxRx) [real]
   units: "-"
 - name: catchrain
-  description: Switch that configures runoff from exposed banks of lake area	[boolean]
+  description: Switch that configures runoff from exposed banks of lake area [boolean]
   units: "-"
 - name: rain_threshold
-  description: Daily rainfall amount (m) required before runoff from exposed banks occurs	[real]
+  description: Daily rainfall amount (m) required before runoff from exposed banks occurs [real]
   units: "-"
 - name: runoff_coef
-  description: Conversion fraction of infiltration excess rainfall to runoff in exposed lake banks	[real]
+  description: Conversion fraction of infiltration excess rainfall to runoff in exposed lake banks [real]
   units: "-"
 - name: cd # Wind & wind-sheltering
-  description: Bulk aerodynamic transfer coefficient for momentum	[real]
+  description: Bulk aerodynamic transfer coefficient for momentum [real]
   units: "-"
 - name: wind_factor
-  description: Scaling factor to adjust the windspeed data provided in the meteo_fl (UxUx)	[real]
+  description: Scaling factor to adjust the windspeed data provided in the meteo_fl (UxUx) [real]
   units: "-"
 - name: fetch_mode
-  description: Switch to configure which wind-sheltering/fetch option to use	[integer]
+  description: Switch to configure which wind-sheltering/fetch option to use [integer]
   units: "-"
 - name: Aws
   description: [real]
@@ -297,130 +297,130 @@ calibration variables:
   description: [real]
   units: "-"
 - name: num_dir
-  description: Number of wind direction reference points being read in	[integer]
+  description: Number of wind direction reference points being read in [integer]
   units: "-"
 - name: wind_dir
-  description: Wind directions used for wind-sheltering effects	[real]
+  description: Wind directions used for wind-sheltering effects [real]
   units: "-"
 - name: fetch_scale
-  description: Direction specific wind-sheltering scaling factors	[real]
+  description: Direction specific wind-sheltering scaling factors [real]
   units: "-"
 - name: num_inflows # &inflow
-  description: Number of inflows to be simulated in this simulation	[integer]
+  description: Number of inflows to be simulated in this simulation [integer]
   units: "-"
 - name: names_of_strms
-  description: Names of each inflow	[string]
+  description: Names of each inflow [string]
   units: "-"
 - name: subm_flag
-  description: Switch indicating if the inflow I is entering as a submerged input	[boolean]
+  description: Switch indicating if the inflow I is entering as a submerged input [boolean]
   units: "-"
 - name: strm_hf_angle
-  description: Angle describing the width of an inflow river channel ("half angle")	[real]
+  description: Angle describing the width of an inflow river channel ("half angle") [real]
   units: "-"
 - name: strmbd_slope
-  description: Slope of the streambed / river thalweg for each river (degrees)	[real]
+  description: Slope of the streambed / river thalweg for each river (degrees) [real]
   units: "-"
 - name: strmbd_drag
-  description: Drag coefficient of the river inflow thalweg, to calculate entrainment during insertion	[real]
+  description: Drag coefficient of the river inflow thalweg, to calculate entrainment during insertion [real]
   units: "-"
 - name: coef_inf_entrain
   description: [real]
   units: "-"
 - name: inflow_factor
-  description: Scaling factor that can be applied to adjust the provided input data	[real]
+  description: Scaling factor that can be applied to adjust the provided input data [real]
   units: "-"
 - name: inflow_fl
-  description: Filename(s) of the inflow CSV boundary condition files	[string]
+  description: Filename(s) of the inflow CSV boundary condition files [string]
   units: "-"
 - name: inflow_varnum
-  description: Number of variables being listed in the columns of inflow_fl (comma-separated list)	[integer]
+  description: Number of variables being listed in the columns of inflow_fl (comma-separated list) [integer]
   units: "-"
 - name: inflow_vars
-  description: Names of the variables in the inflow_fl	[string]
+  description: Names of the variables in the inflow_fl [string]
   units: "-"
 - name: time_fmt
-  description: Time format of the 1st column in the inflow_fl	[string]
+  description: Time format of the 1st column in the inflow_fl [string]
   units: "-"
 - name: num_outlet # &outflow
-  description: Number of outflows (including withdrawals, outlets or offtakes) to be included in this simulation	[integer] 
+  description: Number of outflows (including withdrawals, outlets or offtakes) to be included in this simulation [integer] 
   units: "-"
 - name: outflow_fl
-  description: Filename of the file containing the outflow time-series, QoutfxQoutfx	[string]
+  description: Filename of the file containing the outflow time-series, QoutfxQoutfx [string]
   units: "-"
 - name: time_fmt
-  description: Time format of the 1st column in the outflow_fl	[string]
+  description: Time format of the 1st column in the outflow_fl [string]
   units: "-"
 - name: outflow_factor
-  description: "Scaling factor used as a multiplier for outflows, such that: Qoutf=foutfQoutfxQoutf=foutfQoutfx	[real]"
+  description: "Scaling factor used as a multiplier for outflows, such that: Qoutf=foutfQoutfxQoutf=foutfQoutfx [real]"
   units: "-"
 - name: outflow_thick_limit
-  description: Maximum vertical limit of withdrawal entrainment	[real]
+  description: Maximum vertical limit of withdrawal entrainment [real]
   units: "-"
 - name: single_layer_draw
-  description: Switch to only limit withdrawal entrainment and force outflows from layer at the outlet elevation height	[boolean]
+  description: Switch to only limit withdrawal entrainment and force outflows from layer at the outlet elevation height [boolean]
   units: "-"
 - name: flt_off_sw
-  description: Switch to indicate if the outflows are floating offtakes (taking water from near the surface)	[boolean]
+  description: Switch to indicate if the outflows are floating offtakes (taking water from near the surface) [boolean]
   units: "-"
 - name: outlet_type
-  description: Switch to configure approach of each withdrawal (comma-separated list if NOUTF>1NOUTF>1)	[integer]
+  description: Switch to configure approach of each withdrawal (comma-separated list if NOUTF>1NOUTF>1) [integer]
   units: "-"
 - name: outl_elvs # Normal Withdrawals
-  description: Outlet elevations (mm)	[real]
+  description: Outlet elevations (mm) [real]
   units: "-"
 - name: bsn_len_outl
-  description: Basin length at the outlet height(s) (mm)	[real]
+  description: Basin length at the outlet height(s) (mm) [real]
   units: "-"
 - name: bsn_wid_outl
-  description: Basin width at the outlet heights (mm)	[real]
+  description: Basin width at the outlet heights (mm) [real]
   units: "-"
 - name: crit_O2 # Adaptive withdrawals
-  description: TBC	[integer]
+  description: TBC [integer]
   units: "-"
-- name: crit_O2_dep	
+- name: crit_O2_dep 
   description: [integer]
   units: "-"
-- name: crit_O2_days	
+- name: crit_O2_days 
   description: [integer]
   units: "-"
-- name: outlet_crit	
+- name: outlet_crit 
   description: [integer]
   units: "-"
-- name: O2name	
+- name: O2name 
   description: [string]
   units: "-"
-- name: O2idx	
+- name: O2idx 
   description: [string]
   units: "-"
-- name: target_temp	
+- name: target_temp 
   description: [real]
   units: "-"
-- name: min_lake_temp	
+- name: min_lake_temp 
   description: [real]
   units: "-"
-- name: fac_range_upper	
+- name: fac_range_upper 
   description: [real]
   units: "-"
-- name: fac_range_lower	
+- name: fac_range_lower 
   description: [real]
   units: "-"
-- name: mix_withdraw	
+- name: mix_withdraw 
   description: [boolean]
   units: "-"
-- name: coupl_oxy_sw	
+- name: coupl_oxy_sw 
   description: [boolean]
   units: "-"
 - name: withdrTemp_fl
-  description: Filename of the file containing the temperature time-series the adaptive withdrawal is targeting	[string]
+  description: Filename of the file containing the temperature time-series the adaptive withdrawal is targeting [string]
   units: "-"
 - name: seepage # Seepage
-  description: Switch to enable the seepage of water from the lake bottom	[boolean]
+  description: Switch to enable the seepage of water from the lake bottom [boolean]
   units: "-"
 - name: seepage_rate
-  description: Seepage rate of water, or, soil hydraulic conductivity (m day-1m day-1)	[real]
+  description: Seepage rate of water, or, soil hydraulic conductivity (m day-1m day-1) [real]
   units: "-"
 - name: crest_width # Weir overflow
-  description: Width of weir (at crest height) where lake overflows (mm)	[real]
+  description: Width of weir (at crest height) where lake overflows (mm) [real]
   units: "-"
 - name: crest_factor
-  description: Drag coefficient associated with the weir crest, used to compute the overflow discharge rate, QweirQweir	[real]
+  description: Drag coefficient associated with the weir crest, used to compute the overflow discharge rate, QweirQweir [real]
