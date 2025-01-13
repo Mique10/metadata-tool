@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
+import customtkinter
 import yaml
 
 from collections import OrderedDict
@@ -12,9 +13,8 @@ def submit_form():
    output["spatial resolution"] = entry_spatial_resolution.get()
    output["variable spatial resolution"] = var_space_v.get()
    output["dimensionality"] = dims_var.get()
-   output["temporal resolution"] = {"value": entry_temporal_resolution_value.get(), "units": entry_temporal_resolution_units.get()}
+   output["temporal resolution"] = entry_temporal_resolution.get()
    output["variable temporal resolution"] = var_temp_v.get()
-   output["computatioal requirements"] = entry_computational_reqs.get()
 
    input_data = []
    if input_entries:
@@ -46,6 +46,14 @@ def submit_form():
          calibration_vars_data.append(od)
    output["calibration variables"] = calibration_vars_data
    
+   # comp_reqs_data = []
+   # if comp_reqs_entries:
+   #    for (rname,rvalue) in comp_reqs_entries:
+   #       od = OrderedDict()
+   #       od[rname.get()] = rvalue.get()
+   #       comp_reqs_data.append(od)
+   # output["computational requirements"] = comp_reqs_data
+   
    
    #Allow ordered dict to be dumped to yaml
    """ http://stackoverflow.com/a/8661021 """
@@ -70,7 +78,7 @@ def submit_form():
                            , foreground="blue")
 
 
-root = tk.Tk()
+root = customtkinter.CTk()
 root.title("Model Metadata Form")
 root.geometry("1600x800")
 
@@ -89,9 +97,13 @@ secondairy_frame = tk.Frame(canvas)
 
 canvas.create_window((0,0), window=secondairy_frame, anchor="nw")
 
-def updateScrollRegion():
+def updateScrollRegion(region):
 	canvas.update_idletasks()
-	canvas.config(scrollregion=secondairy_frame.bbox())
+	canvas.config(scrollregion=region)
+
+input_frame = customtkinter.CTKScrollableFrame(main_frame)
+
+
 
 
 label_name = ttk.Label(secondairy_frame, text="Name:", foreground="black")
@@ -99,8 +111,6 @@ label_spatial_resolution = ttk.Label(secondairy_frame, text="Spatial Resolution:
 label_variable_spatial_resolution = ttk.Label(secondairy_frame, text="Variable Spatial Resolution:", foreground="black")
 label_dims = ttk.Label(secondairy_frame, text="Dimensionality:", foreground="black")
 label_temporal_resolution = ttk.Label(secondairy_frame, text="Temporal Resolution:", foreground="black")
-label_temporal_resolution_value = ttk.Label(secondairy_frame, text="Value", foreground="black")
-label_temporal_resolution_units = ttk.Label(secondairy_frame, text="Units", foreground="black")
 label_variable_temporal_resolution = ttk.Label(secondairy_frame, text="Variable Temporal Resolution:", foreground="black")
 
 label_input_data = ttk.Label(secondairy_frame, text="Input Data:", foreground="black")
@@ -122,11 +132,10 @@ label_calibration_vars_units = ttk.Label(secondairy_frame, text="Units:", foregr
 entry_name = ttk.Entry(secondairy_frame) 
 entry_spatial_resolution = ttk.Entry(secondairy_frame) 
 entry_variable_spatial_resolution = ttk.Entry(secondairy_frame) 
-entry_temporal_resolution_value = ttk.Entry(secondairy_frame)
-entry_temporal_resolution_units = ttk.Entry(secondairy_frame)
+entry_temporal_resolution = ttk.Entry(secondairy_frame)
+entry_temporal_resolution.insert(0, "P0Y0M0DT0H0M0S")
 entry_variable_temporal_resolution = ttk.Entry(secondairy_frame)
-# entry_calibration_vars = ttk.Entry(secondairy_frame) 
-entry_computational_reqs = ttk.Entry(secondairy_frame) 
+entry_computational_reqs = ttk.Entry(secondairy_frame)
 
 
 dims_var = tk.StringVar()
@@ -145,11 +154,9 @@ label_spatial_resolution.grid(row=1, column=0, padx=10, pady=5, sticky="w")
 label_variable_spatial_resolution.grid(row=2, column=0, padx=10, pady=5, sticky="w")
 label_dims.grid(row=3, column=0, padx=10, pady=5, sticky="w")
 label_temporal_resolution.grid(row=4, column=0, padx=10, pady=5, sticky="w")
-label_temporal_resolution_value.grid(row=5, column=0, padx=10, pady=5, sticky="w")
-label_temporal_resolution_units.grid(row=6, column=0, padx=10, pady=5, sticky="w")
 
-label_variable_temporal_resolution.grid(row=7, column=0, padx=10, pady=5, sticky="w")
-label_computational_reqs.grid(row=8, column=0, padx=10, pady=5, sticky="w")
+label_variable_temporal_resolution.grid(row=5, column=0, padx=10, pady=5, sticky="w")
+label_computational_reqs.grid(row=6, column=0, padx=10, pady=5, sticky="w")
 
 label_input_data.grid(row=0, column=3, padx=10, pady=5, sticky="w")
 label_input_data_name.grid(row=0, column=4, padx=10, pady=5, sticky="w")
@@ -159,19 +166,18 @@ label_output_data.grid(row=0, column=7, padx=10, pady=5, sticky="w")
 label_output_data_name.grid(row=0, column=8, padx=10, pady=5, sticky="w")
 label_output_data_description.grid(row=0, column=9, padx=10, pady=5, sticky="w")
 label_output_data_units.grid(row=0, column=10, padx=10, pady=5, sticky="w")
-label_calibration_vars.grid(row=9, column=0, padx=10, pady=5, sticky="w")
-label_calibration_vars_name.grid(row=10, column=0, padx=10, pady=5, sticky="w")
-label_calibration_vars_description.grid(row=10, column=1, padx=10, pady=5, sticky="w")
-label_calibration_vars_units.grid(row=10, column=2, padx=10, pady=5, sticky="w")
+label_calibration_vars.grid(row=7, column=0, padx=10, pady=5, sticky="w")
+label_calibration_vars_name.grid(row=8, column=0, padx=10, pady=5, sticky="w")
+label_calibration_vars_description.grid(row=8, column=1, padx=10, pady=5, sticky="w")
+label_calibration_vars_units.grid(row=8, column=2, padx=10, pady=5, sticky="w")
 
 
 
 entry_name.grid(row=0, column=1, padx=10, pady=5, sticky="w")
 entry_spatial_resolution.grid(row=1, column=1, padx=10, pady=5, sticky="w")
 dims_combobox.grid(row=3, column=1, padx=10, pady=5, sticky="w")
-entry_temporal_resolution_value.grid(row=5, column=1, padx=10, pady=5, sticky="w")
-entry_temporal_resolution_units.grid(row=6, column=1, padx=10, pady=5, sticky="w")
-entry_computational_reqs.grid(row=8, column=1, padx=10, pady=5, sticky="w")
+entry_temporal_resolution.grid(row=4, column=1, padx=10, pady=5, sticky="w")
+entry_computational_reqs.grid(row=6, column=1, padx=10, pady=5, sticky="w")
 # entry_calibration_vars.grid(row=9, column=1, padx=10, pady=5, sticky="w")
 
 
@@ -190,7 +196,7 @@ def add_input():
    description.grid(row=input_count, column=5, padx=5, pady=5)
    units.grid(row=input_count, column=6, padx=5, pady=5)
    input_count += 1
-   updateScrollRegion()
+   updateScrollRegion(secondairy_frame.bbox())
 
 add_input()
 
@@ -207,7 +213,7 @@ def add_output():
    description.grid(row=output_count, column=9, padx=5, pady=5)
    units.grid(row=output_count, column=10, padx=5, pady=5)
    output_count += 1
-   updateScrollRegion()
+   updateScrollRegion(secondairy_frame.bbox())
 
 add_output()
 
@@ -220,17 +226,17 @@ def add_calibration_var():
    global calibration_vars_count
    calibration_vars_entries.append((ttk.Entry(secondairy_frame),ttk.Entry(secondairy_frame),ttk.Entry(secondairy_frame)))
    (name, description, units) = calibration_vars_entries[-1]
-   name.grid(row= 10 + calibration_vars_count, column=0, padx=5, pady=5, sticky="w")
-   description.grid(row= 10 + calibration_vars_count, column=1, padx=5, pady=5, sticky="w")
-   units.grid(row= 10 + calibration_vars_count, column=2, padx=5, pady=5, sticky="w")
+   name.grid(row= 8 + calibration_vars_count, column=0, padx=5, pady=5, sticky="w")
+   description.grid(row= 8 + calibration_vars_count, column=1, padx=5, pady=5, sticky="w")
+   units.grid(row= 8 + calibration_vars_count, column=2, padx=5, pady=5, sticky="w")
    calibration_vars_count += 1
-   updateScrollRegion()
+   updateScrollRegion(secondairy_frame.bbox())
 
 add_calibration_var()
 
-ttk.Button(secondairy_frame, text='Add', command=add_calibration_var).grid(row=9, column=1, padx=10, pady=5, sticky="w")
+ttk.Button(secondairy_frame, text='Add', command=add_calibration_var).grid(row=7, column=1, padx=10, pady=5, sticky="w")
 
-#radio button for variable spacial resolution
+#radio button for variable spatial resolution
 button_frame_var_space = tk.Frame(secondairy_frame)
 button_frame_var_space.grid(row=2, column=1)
 var_space_v= tk.StringVar()
@@ -243,7 +249,7 @@ r3.grid(row=0,column=2, padx=10)
 
 #radio buttons for variable temporal resolution
 button_frame_var_temp = tk.Frame(secondairy_frame)
-button_frame_var_temp.grid(row=7, column=1)
+button_frame_var_temp.grid(row=5, column=1)
 var_temp_v = tk.StringVar()
 r4 = ttk.Radiobutton(button_frame_var_temp, text='Yes', variable=var_temp_v, value='Yes')
 r4.grid(row=0,column=0, padx=10) 
