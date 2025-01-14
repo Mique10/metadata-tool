@@ -1,55 +1,10 @@
-name: GLM
-spatial resolution: Vertical
-variable spatial resolution: 'No'
-dimensionality: 1D
-temporal resolution: configurable
-variable temporal resolution: 'No'
-computatioal requirements: N/A
-input data:
-- name: Cinf	
-  description: concentration of relevant scalar in the outflowing water
-  units: Various
-- name: Cx	
-  description: cloud cover fraction
-  units: -
-- name: Qinfx	
-  description: rate of a single water inflow provided by the user as input to the model
-  units: m^3 ss^-1
-- name: Qoutx	
-  description: rate of a single water outflow provided by the user as input to the model
-  units: m^3 s^-1
-- name: Rx	
-  description: rainfall rate supplied in the input file
-  units: m day^-1
-- name: RHx	
-  description: relative humidity
-  units: %
-- name: Sx	
-  description: snowfall rate supplied in the input file
-  units: m day^-1
-- name: Sinfx	
-  description: salinity of water entering in an inflow
-  units: g m-3
-- name: Tx	
-  description: air temperature supplied by the user
-  units: ◦C
-- name: Tinfx	
-  description: temperature of water entering in an inflow
-  units: ◦C
-- name: Ux	
-  description: wind speed above the lake surface provided by the user
-  units: m s^-1
-- name: ∅SWx	
-  description: shortwave radiation flux provided in the input file
-  units: W m^-2
-- name: φwind	
-  description: wind direction
-  units: degrees
-output data:
-- name: ''
-  description: ''
-  units: ''
-calibration variables:
-- name: ''
-  description: ''
-  units: ''
+name: ''
+spatial resolution: ''
+variable spatial resolution: ''
+dimensionality: 0D, 1D, 2D, 3D
+temporal resolution: P0Y0M0DT0H0M0S
+variable temporal resolution: ''
+input data: []
+output data: []
+calibration variables: []
+computational requirements: []
