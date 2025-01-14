@@ -228,7 +228,7 @@ calibration variables:
   description: Filename of the meterological file	[string]
   units: "-"
 - name: subdaily
-  description: Switch to indicate the meteorological data is provided with sub-daily resolution, at an interval equivalent to ΔtΔt	[boolean]
+  description: Switch to indicate the meteorological data is provided with sub-daily resolution, at an interval equivalent to Δt	[boolean]
   units: "-"
 - name: time_fmt
   description: Time format of the 1st column in the inflow_fl	[string]
