@@ -1,30 +1,10 @@
-name: test
-spatial resolution: testing
-variable spatial resolution: Configurable
-dimensionality: 1D, 2D
-temporal resolution: P0Y30000M0DT0H0M05000S
-variable temporal resolution: 'No'
-input data:
-- name: gg
-  description: gg
-  units: g
-- name: gg
-  description: g
-  units: g
-output data:
-- name: hh
-  description: h
-  units: h
-- name: h
-  description: hh
-  units: h
-calibration variables:
-- name: jjj
-  description: jj
-  units: jj
-- name: j
-  description: jjj
-  units: j
-computational requirements:
-- kk: kk
-- kk: k
+name: ''
+spatial resolution: ''
+variable spatial resolution: ''
+dimensionality: ''
+temporal resolution: P0Y0M0DT0H0M0S
+variable temporal resolution: ''
+input data: []
+output data: []
+calibration variables: []
+computational requirements: []
