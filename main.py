@@ -4,6 +4,8 @@ import customtkinter
 import yaml
 
 from collections import OrderedDict
+
+
 class MultiInputs():
    """
    Class that handles creation of new input fields upon button press
@@ -19,7 +21,6 @@ class MultiInputs():
       ttk.Button(main_frame, text='Add', command=self.add_input_field).grid(row=button_row, column=button_column, padx=10, pady=5)
       self.add_input_field()
 
-
    def add_input_field(self):
       """
       Add new row of input fields
@@ -30,7 +31,6 @@ class MultiInputs():
       name.grid(row=count, column=0, padx=5, pady=5)
       description.grid(row=count, column=1, padx=5, pady=5)
       units.grid(row=count, column=2, padx=5, pady=5)
-
 
 def submit_form():
    """
@@ -49,7 +49,6 @@ def submit_form():
    output["output data"] = get_multi_entry(outputs.entries)
    output["calibration variables"] = get_multi_entry(calibration_vars.entries)
    output["computational requirements"] = get_comp_reqs()
-   
    
    #Allow ordered dict to be dumped to yaml
    """ http://stackoverflow.com/a/8661021 """
@@ -121,7 +120,6 @@ root = customtkinter.CTk()
 root.title("Model Metadata Form")
 root.geometry("1600x800")
 
-
 main_frame = tk.Frame(root)
 main_frame.pack(fill="both", expand="1")
 
@@ -158,7 +156,6 @@ label_calibration_vars_units = ttk.Label(calibration_frame, text="Units:", foreg
 label_comp_reqs = ttk.Label(main_frame, text="Computational Requirements:", foreground="black")
 label_comp_reqs_name = ttk.Label(comp_reqs_frame, text="Key:", foreground="black")
 label_comp_reqs_value = ttk.Label(comp_reqs_frame, text="Value:", foreground="black")
-
 
 #Entry boxes
 entry_name = ttk.Entry(main_frame) 
@@ -207,7 +204,6 @@ comp_reqs_frame.grid(row=12, column=5, padx=10, pady=5, rowspan=10, columnspan=3
 label_comp_reqs_name.grid(row=0, column=0, padx=10, pady=5, sticky="w")
 label_comp_reqs_value.grid(row=0, column=1, padx=10, pady=5, sticky="w")
 
-
 #Entry boxes positions
 entry_name.grid(row=0, column=1, padx=10, pady=5, sticky="w")
 entry_spatial_resolution.grid(row=1, column=1, padx=10, pady=5, sticky="w")
@@ -235,9 +231,7 @@ def add_comp_reqs_var():
    comp_reqs_count += 1
 
 add_comp_reqs_var()
-
 ttk.Button(main_frame, text='Add', command=add_comp_reqs_var).grid(row=11, column=7, padx=10, pady=5)
-
 
 #radio button for variable spatial resolution
 button_frame_var_space = tk.Frame(main_frame)
@@ -276,7 +270,6 @@ two_dim.grid(row=0,column=2, padx=10)
 three_dim_var = tk.IntVar()
 three_dim = ttk.Checkbutton(button_frame_dims, text="3D", onvalue=1, offvalue=0, variable=three_dim_var)
 three_dim.grid(row=0,column=3, padx=10)
-
 
 # Run the Tkinter main loop
 root.mainloop()
