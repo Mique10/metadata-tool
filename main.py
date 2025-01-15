@@ -95,7 +95,7 @@ def get_multi_entry(entries):
    if entries:
       for (name,description,units) in entries:
          od = OrderedDict()
-         if name.get() and description.get() and units.get():
+         if name.get() or description.get() or units.get():
             od["name"] = name.get()
             od["description"] = description.get()
             od["units"] = units.get()
