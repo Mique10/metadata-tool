@@ -4,72 +4,51 @@ import customtkinter
 import yaml
 
 from collections import OrderedDict
+class MultiInputs():
+   """
+   Class that handles creation of new input fields upon button press
+   """
+   frame = None
+   
+   def __init__(self, frame, button_row, button_column):
+      """
+      Initialize variables and create button and add first row of input fields
+      """
+      self.frame = frame
+      self.entries = []
+      ttk.Button(main_frame, text='Add', command=self.add_input_field).grid(row=button_row, column=button_column, padx=10, pady=5)
+      self.add_input_field()
+
+
+   def add_input_field(self):
+      """
+      Add new row of input fields
+      """
+      self.entries.append((ttk.Entry(self.frame),ttk.Entry(self.frame),ttk.Entry(self.frame)))
+      (name, description, units) = self.entries[-1]
+      count = len(self.entries)
+      name.grid(row=count, column=0, padx=5, pady=5)
+      description.grid(row=count, column=1, padx=5, pady=5)
+      units.grid(row=count, column=2, padx=5, pady=5)
+
 
 def submit_form():
-   # Retrieve values from the form
+   """
+   Retrieve values from the form. Save values in correct format to a .YAML file
+   """
    output = OrderedDict()
 
    output["name"] = entry_name.get()
    output["spatial resolution"] = entry_spatial_resolution.get()
    output["variable spatial resolution"] = var_space_v.get()
-   dims_list = []
-   if zero_dim_var.get():
-      dims_list.append("0D")
-   if one_dim_var.get():
-      dims_list.append("1D")
-   if two_dim_var.get():
-      dims_list.append("2D")
-   if three_dim_var.get():
-      dims_list.append("3D")
-   dims_string = ", ".join(dims_list)
-   output["dimensionality"] = dims_string
-
-
-
+   output["dimensionality"] = get_dimensions()
    output["temporal resolution"] = entry_temporal_resolution.get()
    output["variable temporal resolution"] = var_temp_v.get()
-
-   input_data = []
-   if input_entries:
-      for (iname,idescription,iunits) in input_entries:
-         od = OrderedDict()
-         if iname.get() and idescription.get() and iunits.get():
-            od["name"] = iname.get()
-            od["description"] = idescription.get()
-            od["units"] = iunits.get()
-            input_data.append(od)
-   output["input data"] = input_data
-
-   output_data = []
-   if output_entries:
-      for (oname,odescription,ounits) in output_entries:
-         od = OrderedDict()
-         if oname.get() and odescription.get() and ounits.get():
-            od["name"] = oname.get()
-            od["description"] = odescription.get()
-            od["units"] = ounits.get()
-            output_data.append(od)
-   output["output data"] = output_data
-
-   calibration_vars_data = []
-   if calibration_vars_entries:
-      for (cname,cdescription,cunits) in calibration_vars_entries:
-         od = OrderedDict()
-         if cname.get() and cdescription.get() and cunits.get():
-            od["name"] = cname.get()
-            od["description"] = cdescription.get()
-            od["units"] = cunits.get()
-            calibration_vars_data.append(od)
-   output["calibration variables"] = calibration_vars_data
-   
-   comp_reqs_data = []
-   if comp_reqs_entries:
-      for (rkey, rvalue) in comp_reqs_entries:
-         od = OrderedDict()
-         if rkey.get() and rvalue.get():
-            od[rkey.get()] = rvalue.get()
-            comp_reqs_data.append(od)
-   output["computational requirements"] = comp_reqs_data
+   print(inputs.entries)
+   output["input data"] = get_multi_entry(inputs.entries)
+   output["output data"] = get_multi_entry(outputs.entries)
+   output["calibration variables"] = get_multi_entry(calibration_vars.entries)
+   output["computational requirements"] = get_comp_reqs()
    
    
    #Allow ordered dict to be dumped to yaml
@@ -78,7 +57,7 @@ def submit_form():
    yaml.add_representer(OrderedDict, represent_dict_order)
 
    with open('data.yml', 'w') as outfile:
-    yaml.dump(output, outfile, default_flow_style=False)
+      yaml.dump(output, outfile, default_flow_style=False)
 
    # Success message
    result_label.config(text=f"YAML File Successfully Created!\n"
@@ -93,6 +72,49 @@ def submit_form():
                         #   f"Calibration Variables: {calibration_vars}\n"
                         #   f"Comutational Requirements: {computational_reqs}\n"
                            , foreground="blue")
+   
+def get_dimensions():
+   """
+   Get the dimensional data from the form
+   """
+   dims_list = []
+   if zero_dim_var.get():
+      dims_list.append("0D")
+   if one_dim_var.get():
+      dims_list.append("1D")
+   if two_dim_var.get():
+      dims_list.append("2D")
+   if three_dim_var.get():
+      dims_list.append("3D")
+   return ", ".join(dims_list)
+
+def get_multi_entry(entries):
+   """
+   Get the data from the form for a metadata point with multiple entries
+   """
+   results = []
+   if entries:
+      for (name,description,units) in entries:
+         od = OrderedDict()
+         if name.get() and description.get() and units.get():
+            od["name"] = name.get()
+            od["description"] = description.get()
+            od["units"] = units.get()
+            results.append(od)
+   return results
+
+def get_comp_reqs():
+   """
+   Get the computational requirements data from the form
+   """
+   comp_reqs_data = []
+   if comp_reqs_entries:
+      for (rkey, rvalue) in comp_reqs_entries:
+         od = OrderedDict()
+         if rkey.get() and rvalue.get():
+            od[rkey.get()] = rvalue.get()
+            comp_reqs_data.append(od)
+   return comp_reqs_data
 
 
 root = customtkinter.CTk()
@@ -103,30 +125,14 @@ root.geometry("1600x800")
 main_frame = tk.Frame(root)
 main_frame.pack(fill="both", expand="1")
 
-# canvas = tk.Canvas(main_frame)
-# canvas.pack(side="left", fill="both", expand="1")
-
-# scroll = ttk.Scrollbar(main_frame, orient="vertical", command=canvas.yview)
-# scroll.pack(side="right", fill="y")
-
-# canvas.configure(yscrollcommand=scroll.set)
-# canvas.bind('<Configure>', lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
-# root = tk.Frame(canvas)
-
-# canvas.create_window((0,0), window=root, anchor="nw")
-
-# def updateScrollRegion(region):
-# 	canvas.update_idletasks()
-# 	canvas.config(scrollregion=region)
-
+#Scrollable frames for multi entry metadata points
 input_frame = customtkinter.CTkScrollableFrame(main_frame, width=400, height=300)
 output_frame = customtkinter.CTkScrollableFrame(main_frame, width=400, height=300)
 calibration_frame = customtkinter.CTkScrollableFrame(main_frame, width=400, height=300)
 comp_reqs_frame = customtkinter.CTkScrollableFrame(main_frame, width=400, height=300)
 
 
-
-
+#All labels in the program
 label_name = ttk.Label(main_frame, text="Name:", foreground="black")
 label_spatial_resolution = ttk.Label(main_frame, text="Spatial Resolution:", foreground="black")
 label_variable_spatial_resolution = ttk.Label(main_frame, text="Variable Spatial Resolution:", foreground="black")
@@ -144,16 +150,17 @@ label_output_data_name = ttk.Label(output_frame, text="Name:", foreground="black
 label_output_data_description = ttk.Label(output_frame, text="Description:", foreground="black")
 label_output_data_units = ttk.Label(output_frame, text="Units:", foreground="black")
 
-label_comp_reqs = ttk.Label(main_frame, text="Computational Requirements:", foreground="black")
-label_comp_reqs_name = ttk.Label(comp_reqs_frame, text="Key:", foreground="black")
-label_comp_reqs_value = ttk.Label(comp_reqs_frame, text="Value:", foreground="black")
-
 label_calibration_vars = ttk.Label(main_frame, text="Calibration Varables", foreground="black")
 label_calibration_vars_name = ttk.Label(calibration_frame, text="Name:", foreground="black")
 label_calibration_vars_description = ttk.Label(calibration_frame, text="Description:", foreground="black")
 label_calibration_vars_units = ttk.Label(calibration_frame, text="Units:", foreground="black")
 
+label_comp_reqs = ttk.Label(main_frame, text="Computational Requirements:", foreground="black")
+label_comp_reqs_name = ttk.Label(comp_reqs_frame, text="Key:", foreground="black")
+label_comp_reqs_value = ttk.Label(comp_reqs_frame, text="Value:", foreground="black")
 
+
+#Entry boxes
 entry_name = ttk.Entry(main_frame) 
 entry_spatial_resolution = ttk.Entry(main_frame) 
 entry_variable_spatial_resolution = ttk.Entry(main_frame) 
@@ -161,19 +168,16 @@ entry_temporal_resolution = ttk.Entry(main_frame)
 entry_temporal_resolution.insert(0, "P0Y0M0DT0H0M0S")
 entry_variable_temporal_resolution = ttk.Entry(main_frame)
 
-
+#Submit button and label for results
 submit_button = ttk.Button(root, text="Submit", command=submit_form, style="TButton")
-
-
 result_label = ttk.Label(root, text="", foreground="blue")
 
-
+#Label Positions
 label_name.grid(row=0, column=0, padx=10, pady=5, sticky="w")
 label_spatial_resolution.grid(row=1, column=0, padx=10, pady=5, sticky="w")
 label_variable_spatial_resolution.grid(row=2, column=0, padx=10, pady=5, sticky="w")
 label_dims.grid(row=3, column=0, padx=10, pady=5, sticky="w")
 label_temporal_resolution.grid(row=4, column=0, padx=10, pady=5, sticky="w")
-
 label_variable_temporal_resolution.grid(row=5, column=0, padx=10, pady=5, sticky="w")
 
 #Input variables frame
@@ -203,68 +207,22 @@ comp_reqs_frame.grid(row=12, column=5, padx=10, pady=5, rowspan=10, columnspan=3
 label_comp_reqs_name.grid(row=0, column=0, padx=10, pady=5, sticky="w")
 label_comp_reqs_value.grid(row=0, column=1, padx=10, pady=5, sticky="w")
 
+
+#Entry boxes positions
 entry_name.grid(row=0, column=1, padx=10, pady=5, sticky="w")
 entry_spatial_resolution.grid(row=1, column=1, padx=10, pady=5, sticky="w")
 entry_temporal_resolution.grid(row=4, column=1, padx=10, pady=5, sticky="w")
-# entry_computational_reqs.grid(row=6, column=1, padx=10, pady=5, sticky="w")
-# entry_calibration_vars.grid(row=9, column=1, padx=10, pady=5, sticky="w")
 
-
+#Submit button and result label position
 result_label.pack(side="bottom", padx=10, pady=5)
 submit_button.pack(side="bottom", padx=10, pady=5)
 
+# classes for MultiInputs
+inputs = MultiInputs(input_frame, 0, 4)
+outputs = MultiInputs(output_frame, 0, 7)
+calibration_vars = MultiInputs(calibration_frame, 11, 4)
 
-input_entries = []
-input_count = 1
-
-def add_input():
-   global input_count
-   input_entries.append((ttk.Entry(input_frame),ttk.Entry(input_frame),ttk.Entry(input_frame)))
-   (name, description, units) = input_entries[-1]
-   name.grid(row=input_count, column=0, padx=5, pady=5)
-   description.grid(row=input_count, column=1, padx=5, pady=5)
-   units.grid(row=input_count, column=2, padx=5, pady=5)
-   input_count += 1
-   # updateScrollRegion(main_frame.bbox())
-
-add_input()
-
-ttk.Button(main_frame, text='Add', command=add_input).grid(row=0, column=4, padx=10, pady=5)
-
-output_entries = []
-output_count = 1
-
-def add_output():
-   global output_count
-   output_entries.append((ttk.Entry(output_frame),ttk.Entry(output_frame),ttk.Entry(output_frame)))
-   (name, description, units) = output_entries[-1]
-   name.grid(row=output_count, column=0, padx=5, pady=5)
-   description.grid(row=output_count, column=1, padx=5, pady=5)
-   units.grid(row=output_count, column=2, padx=5, pady=5)
-   output_count += 1
-   # updateScrollRegion(main_frame.bbox())
-
-add_output()
-
-ttk.Button(main_frame, text='Add', command=add_output).grid(row=0, column=7, padx=10, pady=5)
-
-calibration_vars_entries = []
-calibration_vars_count = 1
-
-def add_calibration_var():
-   global calibration_vars_count
-   calibration_vars_entries.append((ttk.Entry(calibration_frame),ttk.Entry(calibration_frame),ttk.Entry(calibration_frame)))
-   (name, description, units) = calibration_vars_entries[-1]
-   name.grid(row= 8 + calibration_vars_count, column=0, padx=5, pady=5, sticky="w")
-   description.grid(row= 8 + calibration_vars_count, column=1, padx=5, pady=5, sticky="w")
-   units.grid(row= 8 + calibration_vars_count, column=2, padx=5, pady=5, sticky="w")
-   calibration_vars_count += 1
-   # updateScrollRegion(main_frame.bbox())
-
-add_calibration_var()
-
-ttk.Button(main_frame, text='Add', command=add_calibration_var).grid(row=11, column=4, padx=10, pady=5)
-
+# Computational Requirements multi input
 comp_reqs_entries = []
 comp_reqs_count = 1
 
@@ -275,11 +233,11 @@ def add_comp_reqs_var():
    name.grid(row= 8 + comp_reqs_count, column=0, padx=5, pady=5, sticky="w")
    description.grid(row= 8 + comp_reqs_count, column=1, padx=5, pady=5, sticky="w")
    comp_reqs_count += 1
-   # updateScrollRegion(main_frame.bbox())
 
 add_comp_reqs_var()
 
 ttk.Button(main_frame, text='Add', command=add_comp_reqs_var).grid(row=11, column=7, padx=10, pady=5)
+
 
 #radio button for variable spatial resolution
 button_frame_var_space = tk.Frame(main_frame)
@@ -318,9 +276,6 @@ two_dim.grid(row=0,column=2, padx=10)
 three_dim_var = tk.IntVar()
 three_dim = ttk.Checkbutton(button_frame_dims, text="3D", onvalue=1, offvalue=0, variable=three_dim_var)
 three_dim.grid(row=0,column=3, padx=10)
-
-
-
 
 
 # Run the Tkinter main loop
