@@ -118,7 +118,7 @@ def get_comp_reqs():
 
 root = customtkinter.CTk()
 root.title("Model Metadata Form")
-root.geometry("1600x800")
+root.geometry("1300x800")
 
 main_frame = tk.Frame(root)
 main_frame.pack(fill="both", expand="1")
